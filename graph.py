@@ -13,12 +13,14 @@ class Graph:
         self.graph_dict[label] = []
         self.num_vertices += 1
         return self.graph_dict
+
     def get_vertex(self, label):
         if type(label) is not str:
             raise ValueError("Label must be a string")
         for key in self.graph_dict:
             if label == key:
                return key, self.graph_dict[key]
+    
     def add_edge(self, src, dest, weight):
         pass
     # def print_edges(self):
@@ -36,3 +38,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    
