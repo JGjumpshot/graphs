@@ -22,10 +22,28 @@ class Graph:
                return key, self.graph_dict[key]
     
     def add_edge(self, src, dest, weight):
-        pass
-    # def print_edges(self):
-    #     print(self.edges)
+        if src not in self.graph_dict:
+            edge_val = self.add_vertex(src)
+        if dest not in self.graph_dict:
+            edge_val = self.add_vertex(dest)
+        self.graph_dict
 
+# class Vertex:
+#     def __init__(self, key):
+#         self.id = key
+#         self.connected_to = {}
+
+#     def add_neighbor(self, neighbor, weight=0):
+#         self.connected_to[neighbor] = weight
+
+#     def __str__(self):
+#         return str(self.id) + ' connectedTo: ' + str([x.id for x in self.connected_to])
+#     def get_connections(self):
+#         return self.connected_to.keys()
+#     def get_id(self):
+#         return self.id
+#     def get_weight(self, neighbor):
+#         return self.connected_to[neighbor]
 
 def main():
     my_graph = Graph(5)
