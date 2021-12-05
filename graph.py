@@ -53,7 +53,7 @@ def main():
     print(my_graph.add_vertex("B"))
     print(my_graph.add_vertex("C"))
     # print(my_graph.num_vertices)
-    print(my_graph.get_vertex("C"))
+    # print(my_graph.get_vertex("C"))
     # print(my_graph.add_vertex("B"))
 
 if __name__ == "__main__":
