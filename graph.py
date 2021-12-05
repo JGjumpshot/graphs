@@ -25,6 +25,10 @@ class Graph:
             else:
                 raise ValueError("Key not found")
     def add_edge(self, src, dest, weight):
+        if len(src) > 1 or len(dest) > 1:
+            raise ValueError("Not a valid graph node")
+        if type(weight) is not float:
+            raise ValueError("Not a valid weight")
         if src not in self.graph_dict:
             edge_val = self.add_vertex(src)
         if dest not in self.graph_dict:
