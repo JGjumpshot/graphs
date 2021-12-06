@@ -14,8 +14,7 @@ class Graph:
         self.num_vertices += 1
         new_vertex = Vertex(label)
         self.graph_dict[label] = new_vertex
-        return self.graph_dict
-
+        return self
     def get_vertex(self, label):
         if type(label) is not str:
             raise ValueError("Label must be a string")
@@ -36,13 +35,14 @@ class Graph:
         if src in self.graph_dict and dest in self.graph_dict:
             self.graph_dict[src].add_neighbor(dest, weight)
             self.graph_dict[dest].add_neighbor(src, weight)
-            return self.graph_dict[src].connected_to
+            return self #.graph_dict[src].connected_to
         else:
             return False
-
-    def __str__(self):
-        for key in self.graph_dict:
-            yield self.graph_dict[key]
+    def get_weight(self, src, dest=None):
+        return self.get_vertex(src)
+    # def __str__(self):
+    #     for key in self.graph_dict:
+    #         yield self.graph_dict[key]
     def __iter__(self):
         return iter(self.graph_dict.values())
 
@@ -59,7 +59,9 @@ class Vertex:
             self.connected_to.sort()
 
     def __str__(self):
-        return str(self.id) + ' connectedTo: ' + str([x.id for x in self.connected_to])
+        print(self.id)
+        print(self.connected_to)
+        return str(self.id) + ' connectedTo: ' + str([x for x in self.connected_to])
 
     def get_connections(self):
         for i in self.connected_to:
@@ -81,7 +83,9 @@ def main():
     my_graph.add_vertex("C")
     print(my_graph.add_edge("A", "B", 2.0))
     print(my_graph.add_edge("A", "C", 5.0))
-    print(my_graph.graph_dict)
+    for key in my_graph.graph_dict:
+        print(f"{my_graph.graph_dict[key]} {my_graph.graph_dict[key].connected_to}")
+        
     # print(my_graph.get_vertex("A"))
     # my_graph.add_edge("A", "B", 2.0)
     # my_graph.add_edge("A", "C", 5.0)
