@@ -74,23 +74,23 @@ def test_vertex_edge_weight():
 #     data = [x for x in gen]
 #     assert len(data) == 3
 
-# def test_print():
-#     g = Graph()
-#     g.add_vertex("A")
-#     g.add_vertex("B")
-#     g.add_vertex("C")
-#     g.add_vertex("D")
-#     g.add_vertex("E")
-#     g.add_vertex("F")
+def test_print():
+    g = Graph()
+    g.add_vertex("A")
+    g.add_vertex("B")
+    g.add_vertex("C")
+    g.add_vertex("D")
+    g.add_vertex("E")
+    g.add_vertex("F")
 
-#     g.add_edge("A", "B", 1.0)
-#     g.add_edge("A", "C", 1.0)
+    g.add_edge("A", "B", 1.0)
+    g.add_edge("A", "C", 1.0)
 
-#     g.add_edge("B", "D", 1.0)
+    g.add_edge("B", "D", 1.0)
 
-#     g.add_edge("C", "E", 1.0)
+    g.add_edge("C", "E", 1.0)
 
-#     g.add_edge("E", "F", 1.0)
+    g.add_edge("E", "F", 1.0)
 
 
 #     expected ='''digraph G {
@@ -175,10 +175,10 @@ def test_for_main():
     ''' we just test for existence '''
     assert inspect.isfunction(main)
 
-# def test_code_quality():
-#     from pylint.lint import Run
+def test_code_quality():
+    from pylint.lint import Run
     
-#     results = Run(['graph.py'], exit=False)
-#     expected = 8.5
-#     actual = results.linter.stats['global_note']
-#     assert actual >= expected
+    results = Run(['graph.py'], exit=False)
+    expected = 8.5
+    actual = results.linter.stats['global_note']
+    assert actual >= expected
