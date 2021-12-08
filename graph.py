@@ -49,19 +49,22 @@ class Graph:
                 return i[1]
         return math.inf
 
-    def bfs(self, starting_vertex):
-        """Breadth first search"""
-        queue = []
-        starting_vertex.distance = 0
-        for vertex in starting_vertex.connected_to:
-            self.graph_dict[vertex].distance = starting_vertex.distance + 1
-            queue.append(vertex)
-        while len(queue) > 0:
-            pop_queue = queue.pop(0)
-            node_v = self.graph_dict[pop_queue]
+    # def bfs(self, starting_vertex):
+    #     """Breadth first search"""
+    #     queue = []
+    #     starting_vertex.distance = 0
+    #     for vertex in starting_vertex.connected_to:
+    #         self.graph_dict[vertex].distance = starting_vertex.distance + 1
+    #         queue.append(vertex)
+    #     while len(queue) > 0:
+    #         pop_queue = queue.pop(0)
+    #         node_v = self.graph_dict[pop_queue]
 
-            for vertex in node_v.connected_to:
-                pass
+    #         for vertex in node_v.connected_to:
+    #             pass
+
+    def dfs(self, starting_vertex):
+        pass
     def __iter__(self):
         """iter method"""
         return iter(self.graph_dict.values())
@@ -101,6 +104,7 @@ def main():
     my_graph.add_vertex("C")
     print(my_graph.add_edge("A", "B", 2.0))
     print(my_graph.add_edge("A", "C", 5.0))
+    print(my_graph.add_edge("B", "C", 1.8))
     for key in my_graph.graph_dict:
         print(f"{my_graph.graph_dict[key]}")
 if __name__ == "__main__":
