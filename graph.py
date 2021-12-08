@@ -63,18 +63,31 @@ class Graph:
     #         for vertex in node_v.connected_to:
     #             pass
 
-    def dfs(self, starting_vertex):
-        pass
+    def dfs(self, start_node):
+        # for node in self.graph_dict:
+        start_node = self.get_vertex(start_node)
+        if start_node[1].visited is False:
+            start_node[1].visited = True
+        for neighbor in start_node[1].connected_to:
+            yield start_node[0]
+            print(neighbor)
+            start_node = neighbor[0]
+            self.dfs(start_node)
+        # return self._dfs(self.graph_dict, start_node, start_node[1].visited)
+        
+    
     def __iter__(self):
         """iter method"""
         return iter(self.graph_dict.values())
 
 class Vertex:
-    """Vertext class"""
+    """Vertex class"""
     def __init__(self, label):
         """init method"""
         self.id = label
         self.connected_to = []
+        self.visited = False
+        self.ancestor = None
     def add_neighbor(self, vertex, weight):
         """add_neighbor"""
         if vertex not in self.connected_to:
@@ -89,7 +102,6 @@ class Vertex:
         for i in self.connected_to:
             print(type(self.connected_to[i]))
             return self.connected_to[i]
-
     def get_id(self):
         """get id of a vertex"""
         return self.id
@@ -104,8 +116,10 @@ def main():
     my_graph.add_vertex("C")
     print(my_graph.add_edge("A", "B", 2.0))
     print(my_graph.add_edge("A", "C", 5.0))
-    print(my_graph.add_edge("B", "C", 1.8))
-    for key in my_graph.graph_dict:
-        print(f"{my_graph.graph_dict[key]}")
+    my_graph.add_edge("B", "D", 1.8)
+    # print(my_graph.add_edge("C", "D", 1.8))
+    print(my_graph.dfs("A"))
+    # for key in my_graph.graph_dict:
+    #     print(f"{my_graph.graph_dict[key]}")
 if __name__ == "__main__":
     main()
