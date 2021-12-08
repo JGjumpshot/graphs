@@ -6,7 +6,6 @@ class Graph:
         """init method"""
         self.graph_dict = {}
         self.num_vertices = 0
-
     def add_vertex(self, label):
         """add vertex to the graph"""
         if type(label) is not str:
@@ -64,16 +63,15 @@ class Graph:
     #             pass
 
     def dfs(self, start_node):
-        # for node in self.graph_dict:
         start_node = self.get_vertex(start_node)
-        if start_node[1].visited is False:
-            start_node[1].visited = True
-        for neighbor in start_node[1].connected_to:
-            yield start_node[0]
-            print(neighbor)
-            start_node = neighbor[0]
-            self.dfs(start_node)
-        # return self._dfs(self.graph_dict, start_node, start_node[1].visited)
+        # start_node[1])
+        start_node[1].visited = True
+        yield start_node[0]
+        for node in start_node[1].connected_to:
+            current_node = self.get_vertex(node[0])
+            if current_node[1].visited is False:
+                self.dfs(current_node[0])
+        
         
     
     def __iter__(self):
