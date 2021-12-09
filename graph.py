@@ -48,20 +48,25 @@ class Graph:
                 return i[1]
         return math.inf
 
-    def bfs(self, starting_vertex):
+    def bfs(self, start_vertex):
         """Breadth first search"""
-        queue = []
-        starting_vertex.distance = 0
-        for vertex in starting_vertex.connected_to:
-            self.graph_dict[vertex].distance = starting_vertex.distance + 1
-            queue.append(vertex)
-        while len(queue) > 0:
-            pop_queue = queue.pop(0)
-            node_v = self.graph_dict[pop_queue]
-
-            for vertex in node_v.connected_to:
-                pass
-
+        start_node = self.get_vertex(start_vertex)
+        queue, visited = [start_node[0]], []
+        # starting_vertex.distance = 0
+        while queue:
+            vertex = queue.pop(0)
+            if vertex in visited:
+                continue
+            visited.append(vertex)
+            new_vertex_var = self.get_vertex(vertex)
+            for neighbor in new_vertex_var[1].connected_to:
+                # print(neighbor[0])
+                push_stack = self.get_vertex(neighbor[0])
+                # print(push_stack)
+                queue.append(push_stack[0])
+                start_node = push_stack
+        return iter(visited)
+      
     def dfs(self, start_node):
         start_node = self.get_vertex(start_node)
         stack, visited = [start_node[0]], []
@@ -78,19 +83,6 @@ class Graph:
                 stack.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
-            
-            
-    # def dfs(self, start_node):
-    #     start_node = self.get_vertex(start_node)
-    #     # start_node[1])
-    #     start_node[1].visited = True
-    #     yield start_node[0]
-    #     for node in start_node[1].connected_to:
-    #         current_node = self.get_vertex(node[0])
-    #         if current_node[1].visited is False:
-    #             self.dfs(current_node[0])
-        
-        
     
     def __iter__(self):
         """iter method"""
@@ -102,8 +94,6 @@ class Vertex:
         """init method"""
         self.id = label
         self.connected_to = []
-        self.visited = False
-        self.ancestor = None
     def add_neighbor(self, vertex, weight):
         """add_neighbor"""
         if vertex not in self.connected_to:
@@ -155,6 +145,8 @@ def main():
     g.add_edge("E", "F", 1.0)
 
     gen = g.bfs("A")
+    
+
     # data = [x for x in gen]
     # assert data[0] == "A"
     # assert data[-1] == "F"
