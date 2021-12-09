@@ -78,9 +78,9 @@ class Graph:
             visited.append(vertex)
             new_vertex_var = self.get_vertex(vertex)
             for neighbor in new_vertex_var[1].connected_to:
-                print(neighbor[0])
+                # print(neighbor[0])
                 push_stack = self.get_vertex(neighbor[0])
-                print(push_stack)
+                # print(push_stack)
                 stack.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
@@ -108,7 +108,6 @@ class Vertex:
             self.connected_to.sort()
     def __str__(self):
         """str function"""
-        # return str(self.id) + ' connectedTo: ' + str([x for x in self.connected_to])
         return str(self.id) + ' connectedTo: ' + str(self.connected_to)
     def get_connections(self):
         """get_connections or edges"""
@@ -142,18 +141,28 @@ def main():
     g.add_vertex("E")
     g.add_vertex("F")
 
-    g.add_edge("A", "B", 1.0)
-    g.add_edge("A", "C", 1.0)
+    g.add_edge("A", "B", 2.0)
+    g.add_edge("A", "F", 9.0)
+    
+    g.add_edge("B", "C", 8.0)
+    g.add_edge("B", "D", 15.0)
+    g.add_edge("B", "F", 6.0)
 
-    g.add_edge("B", "D", 1.0)
-
-    g.add_edge("C", "E", 1.0)
-
-    g.add_edge("E", "F", 1.0)
-
-    # gen = g.bfs("A")
-    print(g)
-
+    g.add_edge("C", "D", 1.0)
+    
+    g.add_edge("E", "C", 7.0)
+    g.add_edge("E", "D", 3.0)
+    
+    g.add_edge("F", "B", 6.0)
+    g.add_edge("F", "E", 3.0)
+    gen = g.bfs("A")
+    for x in gen:
+        print(x, end=" ")
+    # print(gen)
+    gen = g.dfs("A")
+    print("")
+    for x in gen:
+        print(x, end=" ")
     # data = [x for x in gen]
     # assert data[0] == "A"
     # assert data[-1] == "F"

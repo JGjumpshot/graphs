@@ -104,40 +104,40 @@ def test_print():
     output = str(g)
     assert output == expected
 
-# def test_dsp():
-#     g = Graph()
-#     g.add_vertex("A")
-#     g.add_vertex("B")
-#     g.add_vertex("C")
-#     g.add_vertex("D")
-#     g.add_vertex("E")
-#     g.add_vertex("F")
+def test_dsp():
+    g = Graph()
+    g.add_vertex("A")
+    g.add_vertex("B")
+    g.add_vertex("C")
+    g.add_vertex("D")
+    g.add_vertex("E")
+    g.add_vertex("F")
 
-#     g.add_edge("A", "B", 2)
-#     g.add_edge("A", "F", 9)
+    g.add_edge("A", "B", 2)
+    g.add_edge("A", "F", 9)
 
-#     g.add_edge("B", "F", 6)
-#     g.add_edge("B", "D", 15)
-#     g.add_edge("B", "C", 8)
+    g.add_edge("B", "F", 6)
+    g.add_edge("B", "D", 15)
+    g.add_edge("B", "C", 8)
 
-#     g.add_edge("C", "D", 1)
+    g.add_edge("C", "D", 1)
 
-#     g.add_edge("E", "C", 7)
-#     g.add_edge("E", "D", 3)
+    g.add_edge("E", "C", 7)
+    g.add_edge("E", "D", 3)
 
-#     g.add_edge("F", "B", 6)
-#     g.add_edge("F", "E", 3)
+    g.add_edge("F", "B", 6)
+    g.add_edge("F", "E", 3)
 
-#     path = g.dsp("A", "B")
-#     assert path == (2, ['A', 'B'])
-#     path = g.dsp("A", "C")
-#     assert path == (10, ['A', 'B', 'C'])
-#     path = g.dsp("A", "D")
-#     assert path == (11, ['A', 'B', 'C', 'D'])
-#     path = g.dsp("A", "F")
-#     assert path == (8, ['A', 'B', 'F'])
-#     path = g.dsp("D","A")
-#     assert path == (math.inf, [])
+    path = g.dsp("A", "B")
+    assert path == (2, ['A', 'B'])
+    path = g.dsp("A", "C")
+    assert path == (10, ['A', 'B', 'C'])
+    path = g.dsp("A", "D")
+    assert path == (11, ['A', 'B', 'C', 'D'])
+    path = g.dsp("A", "F")
+    assert path == (8, ['A', 'B', 'F'])
+    path = g.dsp("D","A")
+    assert path == (math.inf, [])
 
 # def test_dsp_all():
 #     g = Graph()
