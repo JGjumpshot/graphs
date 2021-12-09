@@ -86,9 +86,9 @@ class Graph:
         return iter(visited)
     def __str__(self):
         for node in self.graph_dict:
-            print(self.graph_dict[node].id, end=" ")
+            # print(self.graph_dict[node].id, end=" ")
             for neighbor in self.graph_dict[node].connected_to:
-                print(neighbor)
+                print(f"{self.graph_dict[node].id} -> {neighbor[0]}")
         formatted_str = f"digraph G {{\n\n}}"
         return formatted_str
     def __iter__(self):
