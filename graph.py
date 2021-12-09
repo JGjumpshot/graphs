@@ -85,12 +85,12 @@ class Graph:
                 start_node = push_stack
         return iter(visited)
     def __str__(self):
+        formatted_str = f"digraph G {{\n"
         for node in self.graph_dict:
             # print(self.graph_dict[node].id, end=" ")
             for neighbor in self.graph_dict[node].connected_to:
-                print(f"{self.graph_dict[node].id} -> {neighbor[0]} [label=\"{neighbor[1]}\", weight=\"{neighbor[1]}\"];")
-        formatted_str = f"digraph G {{\n\n}}"
-        return formatted_str
+                formatted_str += f"   {self.graph_dict[node].id} -> {neighbor[0]} [label=\"{neighbor[1]}\",weight=\"{neighbor[1]}\"];\n"
+        return formatted_str + f"}}\n"
     def __iter__(self):
         """iter method"""
         return iter(self.graph_dict.values())
