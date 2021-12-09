@@ -20,32 +20,32 @@ def test_vertex_edge_weight():
     assert g.get_weight("B", "A") == math.inf
     assert isinstance(x, Graph)
 
-# def test_bfs():
-#     g = Graph()
-#     g.add_vertex("A")
-#     g.add_vertex("B")
-#     g.add_vertex("C")
-#     g.add_vertex("D")
-#     g.add_vertex("E")
-#     g.add_vertex("F")
+def test_bfs():
+    g = Graph()
+    g.add_vertex("A")
+    g.add_vertex("B")
+    g.add_vertex("C")
+    g.add_vertex("D")
+    g.add_vertex("E")
+    g.add_vertex("F")
 
-#     g.add_edge("A", "B", 1.0)
-#     g.add_edge("A", "C", 1.0)
+    g.add_edge("A", "B", 1.0)
+    g.add_edge("A", "C", 1.0)
 
-#     g.add_edge("B", "D", 1.0)
+    g.add_edge("B", "D", 1.0)
 
-#     g.add_edge("C", "E", 1.0)
+    g.add_edge("C", "E", 1.0)
 
-#     g.add_edge("E", "F", 1.0)
+    g.add_edge("E", "F", 1.0)
 
-#     gen = g.bfs("A")
-#     data = [x for x in gen]
-#     assert data[0] == "A"
-#     assert data[-1] == "F"
-#     assert len(data) == 6
-#     gen = g.bfs("C")
-#     data = [x for x in gen]
-#     assert len(data) == 3
+    gen = g.bfs("A")
+    data = [x for x in gen]
+    assert data[0] == "A"
+    assert data[-1] == "F"
+    assert len(data) == 6
+    gen = g.bfs("C")
+    data = [x for x in gen]
+    assert len(data) == 3
 
 def test_dfs():
     g = Graph()
