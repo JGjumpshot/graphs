@@ -68,6 +68,7 @@ class Graph:
         return iter(visited)
       
     def dfs(self, start_node):
+        """Depth first search"""
         start_node = self.get_vertex(start_node)
         stack, visited = [start_node[0]], []
         while stack:
@@ -83,7 +84,11 @@ class Graph:
                 stack.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
-    
+    def __str__(self):
+        for node in self.graph_dict:
+            print(self.graph_dict[node])
+        formatted_str = f"digraph G {{\n\n}}"
+        return formatted_str
     def __iter__(self):
         """iter method"""
         return iter(self.graph_dict.values())
@@ -144,8 +149,8 @@ def main():
 
     g.add_edge("E", "F", 1.0)
 
-    gen = g.bfs("A")
-    
+    # gen = g.bfs("A")
+    print(g)
 
     # data = [x for x in gen]
     # assert data[0] == "A"
