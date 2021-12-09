@@ -84,15 +84,20 @@ class Graph:
                 stack.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
+    def dsp(self, src, dest):
+        src = self.get_vertex(src)
+        dest = self.get_vertex(dest)
     def dsp_all(self, start_node):
-        pass
+        start_node = self.get_vertex(start_node)
+        print(start_node)
+
     def __str__(self):
         formatted_str = f"digraph G {{\n"
         for node in self.graph_dict:
             # print(self.graph_dict[node].id, end=" ")
             for neighbor in self.graph_dict[node].connected_to:
                 formatted_str += f"   {self.graph_dict[node].id} -> {neighbor[0]} [label=\"{neighbor[1]}\",weight=\"{neighbor[1]}\"];\n"
-        return formatted_str + f"}}\n"
+        return formatted_str + "}\n"
     def __iter__(self):
         """iter method"""
         return iter(self.graph_dict.values())
@@ -124,17 +129,6 @@ class Vertex:
 
 def main():
     """Main function"""
-    # my_graph = Graph()
-    # my_graph.add_vertex("A")
-    # my_graph.add_vertex("B")
-    # my_graph.add_vertex("C")
-    # print(my_graph.add_edge("A", "B", 2.0))
-    # print(my_graph.add_edge("A", "C", 5.0))
-    # my_graph.add_edge("B", "D", 1.8)
-    # # print(my_graph.add_edge("C", "D", 1.8))
-    # # print(my_graph.dfs("A"))
-    # dfs = my_graph.dfs("A")
-
     g = Graph()
     g.add_vertex("A")
     g.add_vertex("B")
@@ -157,24 +151,14 @@ def main():
     
     g.add_edge("F", "B", 6.0)
     g.add_edge("F", "E", 3.0)
-    print(g)
-    gen = g.dfs("A")
-    for x in gen:
-        print(x, end=" ")
-    # print(gen)
-    gen = g.bfs("A")
-    print("")
-    for x in gen:
-        print(x, end=" ")
-    # data = [x for x in gen]
-    # assert data[0] == "A"
-    # assert data[-1] == "F"
-    # assert len(data) == 6
-    # gen = g.bfs("C")
-    # data = [x for x in gen]
-    # assert len(data) == 3
-    ###print(next(dfs))###
-    # for key in my_graph.graph_dict:
-    #     print(f"{my_graph.graph_dict[key]}")
+    g.dsp_all("A")
+    # print(g)
+    # gen = g.dfs("A")
+    # for node in gen:
+    #     print(node, end=" ")
+    # gen = g.bfs("A")
+    # print("")
+    # for node in gen:
+    #     print(node, end=" ")
 if __name__ == "__main__":
     main()
