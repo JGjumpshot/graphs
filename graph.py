@@ -84,6 +84,8 @@ class Graph:
                 stack.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
+    def dsp_all(self, start_node):
+        pass
     def __str__(self):
         formatted_str = f"digraph G {{\n"
         for node in self.graph_dict:
