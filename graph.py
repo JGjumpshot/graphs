@@ -155,11 +155,12 @@ def main():
     
     g.add_edge("F", "B", 6.0)
     g.add_edge("F", "E", 3.0)
-    gen = g.bfs("A")
+    print(g)
+    gen = g.dfs("A")
     for x in gen:
         print(x, end=" ")
     # print(gen)
-    gen = g.dfs("A")
+    gen = g.bfs("A")
     print("")
     for x in gen:
         print(x, end=" ")
