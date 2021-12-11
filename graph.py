@@ -90,29 +90,8 @@ class Graph:
         return iter(visited)
 
     def dsp_all(self, starting_vertex):
-        distances = {vertex: math.inf for vertex in self.graph_dict}
-        distances[starting_vertex] = 0
-        previous = {vertex: None for vertex in self.graph_dict}
-        pq = [(0, starting_vertex)]
-        # for vertex in self.graph_dict:
-        #     previous.append(None)
-        while pq:
-            current_distance, current_vertex = heapq.heappop(pq)
-
-            if current_distance > distances[current_vertex]:
-                continue
-            previous[starting_vertex] = [starting_vertex]
-            for neighbor, weight in self.graph_dict[current_vertex].connected_to:
-                distance = current_distance + weight
-                if distance < distances[neighbor]:
-                    if previous[neighbor] is None:
-                        previous[neighbor] = [current_vertex, neighbor]
-                        distances[neighbor] = distance
-                        # heapq.heappush(pq, (distance, neighbor))
-                    previous[neighbor].append(current_vertex)
-                    distances[neighbor] = distance
-                    heapq.heappush(pq, (distance, neighbor))
-
+        
+        
         return previous
     # def dsp_all(self, src):
     #     src = self.get_vertex(src)
