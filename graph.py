@@ -105,8 +105,12 @@ class Graph:
             for neighbor, weight in self.graph_dict[current_vertex].connected_to:
                 distance = current_distance + weight
                 if distance < distances[neighbor]:
+                    if previous[neighbor] is None:
+                        previous[neighbor] = [current_vertex, neighbor]
+                        distances[neighbor] = distance
+                        # heapq.heappush(pq, (distance, neighbor))
+                    previous[neighbor].append(current_vertex)
                     distances[neighbor] = distance
-                    previous[neighbor] = [current_vertex, neighbor]
                     heapq.heappush(pq, (distance, neighbor))
 
         return previous
@@ -190,6 +194,7 @@ def main():
     g.add_edge("F", "B", 6.0)
     g.add_edge("F", "E", 3.0)
     print(g.dsp_all("A"))
+    print(g)
     # for neighbor in g.dsp("A", "B"):
     #     print(neighbor)
     # print(g.dsp("A", "B"))

@@ -165,7 +165,7 @@ def test_dsp_all():
 
     paths = g.dsp_all("A")
     assert isinstance(paths, dict)
-    # assert paths == {'A':['A'], 'B':['A', 'B'], 'C':['A', 'B', 'C'], 'D':['A', 'B', 'C', 'D'], 'E':['A', 'B', 'F', 'E'], 'F':['A', 'B', 'F']}
+    assert paths == {'A':['A'], 'B':['A', 'B'], 'C':['A', 'B', 'C'], 'D':['A', 'B', 'C', 'D'], 'E':['A', 'B', 'F', 'E'], 'F':['A', 'B', 'F']}
 
     paths = g.dsp_all("D")
     assert isinstance(paths, dict)
