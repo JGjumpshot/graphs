@@ -1,5 +1,6 @@
 """Graph ADT Module"""
 import math
+import heapq
 class Graph:
     """Graph class"""
     def __init__(self):
@@ -30,7 +31,10 @@ class Graph:
         if len(src) > 1 or len(dest) > 1:
             raise ValueError("Not a valid graph node")
         if type(weight) is not float:
-            raise ValueError("Not a valid weight")
+            try:
+                float(weight)
+            except:
+                raise ValueError("Not a valid weight")
         if src not in self.graph_dict:
             edge_val = self.add_vertex(src)
         if dest not in self.graph_dict:
@@ -84,12 +88,44 @@ class Graph:
                 stack.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
-    def dsp(self, src, dest):
-        src = self.get_vertex(src)
-        dest = self.get_vertex(dest)
-    def dsp_all(self, start_node):
-        start_node = self.get_vertex(start_node)
-        print(start_node)
+
+    def dsp_all(self, starting_vertex):
+        distances = {vertex: math.inf for vertex in self.graph_dict}
+        distances[starting_vertex] = 0
+        previous = {vertex: None for vertex in self.graph_dict}
+        pq = [(0, starting_vertex)]
+        # for vertex in self.graph_dict:
+        #     previous.append(None)
+        while pq:
+            current_distance, current_vertex = heapq.heappop(pq)
+
+            if current_distance > distances[current_vertex]:
+                continue
+            previous[starting_vertex] = [starting_vertex]
+            for neighbor, weight in self.graph_dict[current_vertex].connected_to:
+                distance = current_distance + weight
+                if distance < distances[neighbor]:
+                    distances[neighbor] = distance
+                    previous[neighbor] = [current_vertex, neighbor]
+                    heapq.heappush(pq, (distance, neighbor))
+
+        return previous
+    # def dsp_all(self, src):
+    #     src = self.get_vertex(src)
+    #     # dest = self.get_vertex(dest)
+    #     nodes = []
+    #     dist = []
+    #     prev = []
+    #     for vertex in self.graph_dict:
+    #         dist.append(math.inf)
+    #         prev.append(None)
+    #         nodes.append(vertex)
+    #     dist[0] = 0
+    #     print(dist)
+    #     print(nodes)
+
+    #     while nodes:
+    #         nodes.pop(0)
 
     def __str__(self):
         formatted_str = f"digraph G {{\n"
@@ -108,9 +144,11 @@ class Vertex:
         """init method"""
         self.id = label
         self.connected_to = []
+        self.weight = 0
     def add_neighbor(self, vertex, weight):
         """add_neighbor"""
         if vertex not in self.connected_to:
+            self.weight = weight
             self.connected_to.append((vertex, weight))
             self.connected_to.sort()
     def __str__(self):
@@ -151,7 +189,10 @@ def main():
     
     g.add_edge("F", "B", 6.0)
     g.add_edge("F", "E", 3.0)
-    g.dsp_all("A")
+    print(g.dsp_all("A"))
+    # for neighbor in g.dsp("A", "B"):
+    #     print(neighbor)
+    # print(g.dsp("A", "B"))
     # print(g)
     # gen = g.dfs("A")
     # for node in gen:
