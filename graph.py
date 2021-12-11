@@ -88,11 +88,12 @@ class Graph:
                 stack.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
-
+    def dsp(self, src, dest):
+        pass
     def dsp_all(self, starting_vertex):
         distances = {vertex: math.inf for vertex in self.graph_dict}
         distances[starting_vertex] = 0
-        previous = {vertex: None for vertex in self.graph_dict}
+        previous = {vertex: [] for vertex in self.graph_dict}
         pq = [(0, starting_vertex)]
         # for vertex in self.graph_dict:
         #     previous.append(None)
@@ -105,11 +106,8 @@ class Graph:
             for neighbor, weight in self.graph_dict[current_vertex].connected_to:
                 distance = current_distance + weight
                 if distance < distances[neighbor]:
-                    if previous[neighbor] is None:
-                        previous[neighbor] = [current_vertex, neighbor]
-                        distances[neighbor] = distance
-                        # heapq.heappush(pq, (distance, neighbor))
-                    previous[neighbor].append(current_vertex)
+                    previous[neighbor] = list(previous[current_vertex])
+                    previous[neighbor].append(neighbor)
                     distances[neighbor] = distance
                     heapq.heappush(pq, (distance, neighbor))
 
