@@ -1,12 +1,16 @@
 """Graph ADT Module"""
 import math
 import heapq
+
+
 class Graph:
     """Graph class"""
+
     def __init__(self):
         """init method"""
         self.graph_dict = {}
         self.num_vertices = 0
+
     def add_vertex(self, label):
         """add vertex to the graph"""
         if type(label) is not str:
@@ -18,6 +22,7 @@ class Graph:
         new_vertex = Vertex(label)
         self.graph_dict[label] = new_vertex
         return self
+
     def get_vertex(self, label):
         """find vertex and return if found"""
         if type(label) is not str:
@@ -26,6 +31,7 @@ class Graph:
             if label == key:
                 return key, self.graph_dict[key]
         raise ValueError("Key not found")
+
     def add_edge(self, src, dest, weight):
         """add edge between vertices"""
         if len(src) > 1 or len(dest) > 1:
@@ -42,8 +48,9 @@ class Graph:
         if src in self.graph_dict and dest in self.graph_dict:
             self.graph_dict[src].add_neighbor(dest, weight)
             # self.graph_dict[dest].add_neighbor(src, weight)
-            return self #.graph_dict[src].connected_to  
+            return self  # .graph_dict[src].connected_to
         return False
+
     def get_weight(self, src, dest):
         """get weight of vertices"""
         edge_list = self.get_vertex(src)[1].connected_to
@@ -70,7 +77,7 @@ class Graph:
                 queue.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
-      
+
     def dfs(self, start_node):
         """Depth first search"""
         start_node = self.get_vertex(start_node)
@@ -90,9 +97,29 @@ class Graph:
         return iter(visited)
 
     def dsp_all(self, starting_vertex):
-        
-        
-        return previous
+        nodes = []
+        dist = {}
+        prev = {}
+
+        for vertex in self.graph_dict:
+            dist[vertex] = (math.inf)
+            prev[vertex] = None
+            nodes.append(vertex)
+        print(nodes)
+        print(dist)
+        print(prev)
+
+        dist[starting_vertex] = 0
+        while nodes:
+            u = dist[starting_vertex]
+            letter = nodes.pop(u)
+            for neighbor in nodes[u]:
+                test = self.graph_dict[neighbor].weight
+                alt = dist[letter] + (u + test)
+                if alt < dist[neighbor]:
+                    dist[neighbor] = alt
+                    prev[neighbor] = u
+        return dist, prev
     # def dsp_all(self, src):
     #     src = self.get_vertex(src)
     #     # dest = self.get_vertex(dest)
@@ -117,35 +144,41 @@ class Graph:
             for neighbor in self.graph_dict[node].connected_to:
                 formatted_str += f"   {self.graph_dict[node].id} -> {neighbor[0]} [label=\"{neighbor[1]}\",weight=\"{neighbor[1]}\"];\n"
         return formatted_str + "}\n"
+
     def __iter__(self):
         """iter method"""
         return iter(self.graph_dict.values())
 
+
 class Vertex:
     """Vertex class"""
+
     def __init__(self, label):
         """init method"""
         self.id = label
         self.connected_to = []
         self.weight = 0
+
     def add_neighbor(self, vertex, weight):
         """add_neighbor"""
         if vertex not in self.connected_to:
             self.weight = weight
             self.connected_to.append((vertex, weight))
             self.connected_to.sort()
+
     def __str__(self):
         """str function"""
         return str(self.id) + ' connectedTo: ' + str(self.connected_to)
+
     def get_connections(self):
         """get_connections or edges"""
         for i in self.connected_to:
             print(type(self.connected_to[i]))
             return self.connected_to[i]
+
     def get_id(self):
         """get id of a vertex"""
         return self.id
-
 
 
 def main():
@@ -160,20 +193,22 @@ def main():
 
     g.add_edge("A", "B", 2.0)
     g.add_edge("A", "F", 9.0)
-    
+
     g.add_edge("B", "C", 8.0)
     g.add_edge("B", "D", 15.0)
     g.add_edge("B", "F", 6.0)
 
     g.add_edge("C", "D", 1.0)
-    
+
     g.add_edge("E", "C", 7.0)
     g.add_edge("E", "D", 3.0)
-    
+
     g.add_edge("F", "B", 6.0)
     g.add_edge("F", "E", 3.0)
     print(g.dsp_all("A"))
     print(g)
+
+
     # for neighbor in g.dsp("A", "B"):
     #     print(neighbor)
     # print(g.dsp("A", "B"))
