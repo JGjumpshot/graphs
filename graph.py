@@ -41,8 +41,7 @@ class Graph:
             edge_val = self.add_vertex(dest)
         if src in self.graph_dict and dest in self.graph_dict:
             self.graph_dict[src].add_neighbor(dest, weight)
-            # self.graph_dict[dest].add_neighbor(src, weight)
-            return self #.graph_dict[src].connected_to  
+            return self
         return False
     def get_weight(self, src, dest):
         """get weight of vertices"""
@@ -56,7 +55,6 @@ class Graph:
         """Breadth first search"""
         start_node = self.get_vertex(start_vertex)
         queue, visited = [start_node[0]], []
-        # starting_vertex.distance = 0
         while queue:
             vertex = queue.pop(0)
             if vertex in visited:
@@ -64,9 +62,7 @@ class Graph:
             visited.append(vertex)
             new_vertex_var = self.get_vertex(vertex)
             for neighbor in new_vertex_var[1].connected_to:
-                # print(neighbor[0])
                 push_stack = self.get_vertex(neighbor[0])
-                # print(push_stack)
                 queue.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
@@ -82,15 +78,34 @@ class Graph:
             visited.append(vertex)
             new_vertex_var = self.get_vertex(vertex)
             for neighbor in new_vertex_var[1].connected_to:
-                # print(neighbor[0])
                 push_stack = self.get_vertex(neighbor[0])
-                # print(push_stack)
                 stack.append(push_stack[0])
                 start_node = push_stack
         return iter(visited)
     def dsp(self, src, dest):
-        pass
+        """DSP between 2 vertices"""
+        distances = {vertex: math.inf for vertex in self.graph_dict}
+        distances[src] = 0
+        previous = {vertex: [] for vertex in self.graph_dict}
+        pq = [(0, src)]
+        while pq:
+            current_distance, current_vertex = heapq.heappop(pq)
+
+            if current_distance > distances[current_vertex]:
+                continue
+            previous[src] = [src]
+            for neighbor, weight in self.graph_dict[current_vertex].connected_to:
+                distance = current_distance + weight
+                if distance < distances[neighbor]:
+                    previous[neighbor] = list(previous[current_vertex])
+                    previous[neighbor].append(neighbor)
+                    distances[neighbor] = distance 
+                    heapq.heappush(pq, (distance, neighbor))
+
+        return (distances[dest], previous[dest])
+        
     def dsp_all(self, starting_vertex):
+        """DSP for all vertices"""
         distances = {vertex: math.inf for vertex in self.graph_dict}
         distances[starting_vertex] = 0
         previous = {vertex: [] for vertex in self.graph_dict}
@@ -108,31 +123,13 @@ class Graph:
                 if distance < distances[neighbor]:
                     previous[neighbor] = list(previous[current_vertex])
                     previous[neighbor].append(neighbor)
-                    distances[neighbor] = distance
+                    distances[neighbor] = distance 
                     heapq.heappush(pq, (distance, neighbor))
 
         return previous
-    # def dsp_all(self, src):
-    #     src = self.get_vertex(src)
-    #     # dest = self.get_vertex(dest)
-    #     nodes = []
-    #     dist = []
-    #     prev = []
-    #     for vertex in self.graph_dict:
-    #         dist.append(math.inf)
-    #         prev.append(None)
-    #         nodes.append(vertex)
-    #     dist[0] = 0
-    #     print(dist)
-    #     print(nodes)
-
-    #     while nodes:
-    #         nodes.pop(0)
-
     def __str__(self):
         formatted_str = f"digraph G {{\n"
         for node in self.graph_dict:
-            # print(self.graph_dict[node].id, end=" ")
             for neighbor in self.graph_dict[node].connected_to:
                 formatted_str += f"   {self.graph_dict[node].id} -> {neighbor[0]} [label=\"{neighbor[1]}\",weight=\"{neighbor[1]}\"];\n"
         return formatted_str + "}\n"
@@ -159,7 +156,6 @@ class Vertex:
     def get_connections(self):
         """get_connections or edges"""
         for i in self.connected_to:
-            print(type(self.connected_to[i]))
             return self.connected_to[i]
     def get_id(self):
         """get id of a vertex"""
@@ -191,18 +187,16 @@ def main():
     
     g.add_edge("F", "B", 6.0)
     g.add_edge("F", "E", 3.0)
-    print(g.dsp_all("A"))
     print(g)
-    # for neighbor in g.dsp("A", "B"):
-    #     print(neighbor)
-    # print(g.dsp("A", "B"))
-    # print(g)
-    # gen = g.dfs("A")
-    # for node in gen:
-    #     print(node, end=" ")
-    # gen = g.bfs("A")
-    # print("")
-    # for node in gen:
-    #     print(node, end=" ")
+    print("starting DFS with vertex A")
+    for i in g.dfs("A"):
+        print(i, end=" ")
+    print()
+    print("starting BFS with vertex A")
+    for j in g.bfs("A"):
+        print(j, end=" ")
+    print()
+    print(g.dsp("A", "F"))
+    print(g.dsp_all("A"))
 if __name__ == "__main__":
     main()
